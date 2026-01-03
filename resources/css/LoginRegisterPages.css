@@ -1,0 +1,30 @@
+
+.auth_container {
+    @apply w-full max-w-md mx-auto my-10 p-6 bg-gray-50 rounded-lg shadow-md border border-gray-200;
+}
+
+.auth_form {
+    @apply grid gap-4;
+}
+
+.auth_form label {
+    @apply block mb-1 text-gray-700 font-medium;
+}
+
+.auth_form input[type='text'],
+.auth_form input[type='email'],
+.auth_form input[type='password'] {
+    @apply w-full px-4 py-3 rounded-4xl border border-gray-300 focus:outline-none focus:ring focus:ring-indigo-200 transition-colors duration-300 ease-in-out;
+}
+
+.auth_form button {
+    @apply w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-md disabled:opacity-50 cursor-pointer transition-all duration-300 ease-in-out;
+}
+
+.auth_form p {
+    @apply mt-4 text-center text-gray-500 italic;
+}
+
+.error {
+    @apply text-red-400;
+}
