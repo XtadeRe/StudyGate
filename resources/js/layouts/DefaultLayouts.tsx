@@ -18,7 +18,7 @@ const DefaultLayout = ({children, title = 'StudyGate'}: DefaultLayoutProps) => {
             </Head>
 
             <Header />
-            <main className="min-h-screen pt-16 pb-16">{children}</main>
+            <main className="min-h-screen pt-16">{children}</main>
             <Footer />
         </>
     )
