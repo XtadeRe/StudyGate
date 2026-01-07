@@ -30,7 +30,7 @@ const Header = () => {
                     <ul className="hidden md:flex space-x-8">
                         <li>
                             <Link
-                                href="/institutions"
+                                href="/catalog"
                                 className="text-gray-700 hover:text-blue-600 transition-colors duration-300 font-medium"
                             >
                                 Учебные заведения

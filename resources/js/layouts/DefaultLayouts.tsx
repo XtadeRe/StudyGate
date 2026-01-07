@@ -11,10 +11,8 @@ interface DefaultLayoutProps {
 const DefaultLayout = ({children, title = 'StudyGate'}: DefaultLayoutProps) => {
     return (
         <>
-            {/* Добавьте Head для мета-тегов */}
             <Head>
                 <title>{title}</title>
-                {/* CSRF токен будет автоматически добавлен Inertia */}
             </Head>
 
             <Header />
