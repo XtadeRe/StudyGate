@@ -20,7 +20,7 @@ class AuthController extends Controller
 
         User::create($data);
 
-        return redirect()->route('home')->with('message', 'Регистрация прошла успешно!');
+        return redirect()->route('login')->with('message', 'Регистрация прошла успешно!');
     }
 
     public function login(LoginRequest $request) {
@@ -36,5 +36,9 @@ class AuthController extends Controller
             'email' => 'Неверный email или пароль.',
         ])->onlyInput('email');
 
+    }
+
+    public function logout(Request $request) {
+        Auth::logout();
     }
 }

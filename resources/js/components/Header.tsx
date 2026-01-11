@@ -1,24 +1,30 @@
-// src/components/Header.tsx
-import React, { useEffect, useState } from 'react';
-import { Link } from '@inertiajs/react';
+import React from 'react';
+import { Link, router, usePage } from '@inertiajs/react';
 
-type StateType = boolean | null;
 
+interface User {
+    id: number;
+    login: string;
+    email: string;
+}
+
+interface PageProps {
+    auth: {
+        user: User | null;
+    };
+}
 const Header = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState<StateType>(null);
+    const { auth } = usePage<PageProps>().props;
+    const { user } = auth;
 
-    useEffect(() => {
-        const token = localStorage.getItem('authToken');
-        if (token) {
-            setIsAuthenticated(true);
-        } else {
-            setIsAuthenticated(false);
-        }
-    }, []);
+    const handleLogout = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        router.post('/logout');
+    };
 
     return (
         <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
-            {/* Контейнер для контента с отступами */}
             <div className="container mx-auto px-4 py-4">
                 <nav className="flex justify-between items-center">
                     <Link href="/">
@@ -47,7 +53,7 @@ const Header = () => {
                     </ul>
 
                     <div className="flex items-center space-x-6">
-                        {!isAuthenticated ? (
+                        {!user ? (
                             <>
                                 <Link
                                     href="/register"
@@ -63,13 +69,26 @@ const Header = () => {
                                 </Link>
                             </>
                         ) : (
+                            <>
+                                <div className="flex flex-col items-end">
+                                    <span className="text-gray-900 font-medium">
+                                        {user.login}
+                                    </span>
+                                    <span className="text-sm text-gray-500">
+                                        {user.email}
+                                    </span>
+                                </div>
                             <Link
                                 href="/profile"
                                 className="text-gray-700 hover:text-blue-600 transition-colors duration-300 font-medium"
                             >
                                 Профиль
                             </Link>
-                        )}
+                                <form onSubmit={handleLogout}>
+                                <button type="submit" className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors duration-300 font-medium">Выйти</button>
+                                </form>
+                            </>
+                            )}
                     </div>
                 </nav>
             </div>

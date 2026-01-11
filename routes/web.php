@@ -12,3 +12,4 @@ Route::get('/', fn () => inertia('Main'))->name('home');
 
 Route::post('/register', [AuthController::class, 'store'])->name('register.store');
 Route::post('/login', [AuthController::class, 'login'])->name('login.store');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
