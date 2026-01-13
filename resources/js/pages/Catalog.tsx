@@ -1,5 +1,5 @@
 import React from 'react';
-import { usePage } from '@inertiajs/react';
+import { usePage, Link } from '@inertiajs/react';
 import DefaultLayout from '@/layouts/DefaultLayouts';
 import "../../css/catalog.css";
 
@@ -72,12 +72,7 @@ const Catalog = () => {
                                 </div>
 
                                 <div className="card-actions">
-                                    <button className="details-button">
-                                        Подробнее →
-                                    </button>
-                                    <button className="apply-button">
-                                        Подать заявку
-                                    </button>
+                                        <Link className="apply-button cursor-pointer" href={`/catalog/${institution.id}`}>Подробнее →</Link>
                                 </div>
                             </div>
                         </div>

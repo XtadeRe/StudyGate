@@ -16,4 +16,10 @@ class InstitutionController extends Controller
             'institutions' => $institutions
         ]);
     }
+    public function show($id) {
+        $institution = Institution::findOrFail($id);
+        return Inertia::render('InstitutionPage', [
+            'institution' => $institution,
+        ]);
+    }
 }

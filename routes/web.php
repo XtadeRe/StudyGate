@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthController;
 Route::get('/catalog', [InstitutionController::class, 'index'])->name('catalog');
 Route::get('/register', fn () => inertia('Register'))->name('register');
 Route::get('/login', fn () => inertia('Login'))->name('login');
+Route::get('/catalog/{id}', [InstitutionController::class, 'show'])->name('institutionPage');
 Route::get('/', fn () => inertia('Main'))->name('home');
 
 Route::post('/register', [AuthController::class, 'store'])->name('register.store');
