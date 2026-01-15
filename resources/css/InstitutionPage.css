@@ -1,0 +1,154 @@
+@import 'tailwindcss';
+
+.institution-container {
+    @apply min-h-screen bg-gray-50;
+}
+
+.institution-content {
+    @apply container mx-auto px-4 py-8;
+}
+
+.institution-grid {
+    @apply grid grid-cols-1 lg:grid-cols-3 gap-8;
+}
+
+/* Левая колонка с фото */
+.institution-photo-card {
+    @apply bg-white rounded-xl shadow-lg overflow-hidden;
+}
+
+.institution-photo {
+    @apply w-full h-64 object-cover;
+}
+
+
+/* Правая колонка с информацией */
+.institution-info-card {
+    @apply bg-white rounded-xl shadow-lg p-6 mb-8;
+}
+
+.institution-title {
+    @apply text-4xl font-bold text-gray-900 mb-4;
+}
+
+.institution-location {
+    @apply flex items-center gap-2 text-gray-600 mb-6;
+}
+
+.institution-description {
+    @apply text-gray-700 text-lg leading-relaxed mb-8 whitespace-pre-line;
+}
+
+/* Статистика */
+.institution-stats-grid {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-6 mb-8;
+}
+
+.stat-card {
+    @apply bg-gray-50 p-5 rounded-lg;
+}
+
+.stat-label {
+    @apply text-sm text-gray-500 mb-1;
+}
+
+.stat-value {
+    @apply text-xl font-semibold text-gray-900;
+}
+
+/* Стоимость */
+.price-section {
+    @apply mb-8;
+}
+
+.price-title {
+    @apply text-2xl font-bold text-gray-900 mb-4;
+}
+
+.price-card {
+    @apply bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl;
+}
+
+.price-amount {
+    @apply text-3xl font-bold text-gray-900 mb-2;
+}
+
+.price-period {
+    @apply text-gray-600;
+}
+
+/* Программы */
+.programs-section {
+    @apply mb-8;
+}
+
+.programs-title {
+    @apply text-2xl font-bold text-gray-900 mb-4;
+}
+
+.programs-container {
+    @apply flex flex-wrap gap-3;
+}
+
+.program-tag {
+    @apply bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium;
+}
+
+/* Кнопка */
+.apply-button {
+    @apply w-full md:w-auto bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white font-bold text-lg py-4 px-10 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1;
+}
+
+/* Боковая панель */
+.sidebar-card {
+    @apply bg-white rounded-xl shadow-lg p-6;
+}
+
+.sidebar-title {
+    @apply text-xl font-bold text-gray-900 mb-4;
+}
+
+.info-grid {
+    @apply space-y-4;
+}
+
+.info-item {
+    @apply space-y-1;
+}
+
+.info-label {
+    @apply text-sm text-gray-500;
+}
+
+.info-value {
+    @apply font-medium text-gray-900;
+}
+
+.featured-badge {
+    @apply bg-yellow-100 text-yellow-800 text-xs font-semibold px-3 py-1 rounded-full;
+}
+
+/* Таблица данных */
+.data-table-section {
+    @apply mt-12 bg-white rounded-xl shadow-lg p-6;
+}
+
+.data-table-title {
+    @apply text-2xl font-bold text-gray-900 mb-6;
+}
+
+.data-table {
+    @apply min-w-full divide-y divide-gray-200;
+}
+
+.table-row {
+    @apply hover:bg-gray-50;
+}
+
+.table-cell-label {
+    @apply px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50;
+}
+
+.table-cell-value {
+    @apply px-6 py-4 text-sm text-gray-700;
+}
