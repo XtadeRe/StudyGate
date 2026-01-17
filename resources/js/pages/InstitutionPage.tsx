@@ -1,6 +1,6 @@
 import "../../css/InstitutionPage.css";
 import DefaultLayout from '../layouts/DefaultLayouts'
-
+import ModalForInstitutionPage from '../components/modalForInstitutionPage';
 const InstitutionPage = ({ institution }) => {
     return (
         <DefaultLayout>
@@ -80,13 +80,16 @@ const InstitutionPage = ({ institution }) => {
                                     </div>
                                 </div>
 
-                                <button className="apply-button">
+                                <button className="apply-button cursor-pointer">
                                     Начать подачу
                                 </button>
+
                             </div>
                         </div>
+
                     </div>
                 </div>
+                <ModalForInstitutionPage />
             </div>
         </DefaultLayout>
     );
