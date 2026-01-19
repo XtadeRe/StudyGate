@@ -1,7 +1,39 @@
 import "../../css/InstitutionPage.css";
+import { useState } from 'react';
 import DefaultLayout from '../layouts/DefaultLayouts'
 import ModalForInstitutionPage from '../components/modalForInstitutionPage';
-const InstitutionPage = ({ institution }) => {
+
+interface Institution {
+    name: string;
+    image_url: string;
+    city: string;
+    country: string;
+    featured: boolean;
+    description: string;
+    type: string;
+    rating?: number;
+    views: number;
+    price_from?: number;
+    price_to?: number;
+    currency?: string;
+    programs: string[];
+}
+interface Props {
+    institution: Institution;
+}
+const InstitutionPage = ({ institution }: Props) => {
+
+    const [modal, setModal] = useState<boolean>(false)
+
+    const openModal = () => {
+        setModal(true)
+    }
+
+    const closeModal = () => {
+        setModal(false)
+    }
+
+
     return (
         <DefaultLayout>
             <div className="institution-container">
@@ -16,13 +48,13 @@ const InstitutionPage = ({ institution }) => {
                                         className="institution-photo"
                                     />
                                     <div className="p-6">
-                                        <div className="flex items-center justify-between mb-4">
+                                        <div className="flex">
                                             <div>
                                                 <div className="info-label">Местоположение</div>
                                                 <div className="info-value">{institution.city}, {institution.country}</div>
                                             </div>
                                             {institution.featured && (
-                                                <span className="featured-badge">
+                                                <span className="featured-badge ">
                                                     Рекомендуем
                                                 </span>
                                             )}
@@ -72,7 +104,7 @@ const InstitutionPage = ({ institution }) => {
                                 <div className="programs-section">
                                     <h2 className="programs-title">Направления обучения</h2>
                                     <div className="programs-container">
-                                        {institution.programs.map((program, index) => (
+                                        {institution.programs?.map((program, index) => (
                                             <span key={index} className="program-tag">
                                                 {program}
                                             </span>
@@ -80,7 +112,7 @@ const InstitutionPage = ({ institution }) => {
                                     </div>
                                 </div>
 
-                                <button className="apply-button cursor-pointer">
+                                <button onClick={openModal} className="apply-button cursor-pointer">
                                     Начать подачу
                                 </button>
 
@@ -89,7 +121,8 @@ const InstitutionPage = ({ institution }) => {
 
                     </div>
                 </div>
-                <ModalForInstitutionPage />
+                {modal && <ModalForInstitutionPage onClose={closeModal} />}
+
             </div>
         </DefaultLayout>
     );

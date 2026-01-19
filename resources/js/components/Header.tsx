@@ -50,6 +50,14 @@ const Header = () => {
                                 О компании
                             </Link>
                         </li>
+                        <li>
+                            <Link
+                                href="/immigration"
+                                className="text-gray-700 hover:text-blue-600 transition-colors duration-300 font-medium"
+                            >
+                                Правила
+                            </Link>
+                        </li>
                     </ul>
 
                     <div className="flex items-center space-x-6">
