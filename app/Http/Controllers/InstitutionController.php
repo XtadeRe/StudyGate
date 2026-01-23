@@ -20,6 +20,10 @@ class InstitutionController extends Controller
         $institution = Institution::findOrFail($id);
         return Inertia::render('InstitutionPage', [
             'institution' => $institution,
+            'modalInitialData' => [
+                'institution_id' => $institution->id,
+                'institution_name' => $institution->name,
+            ]
         ]);
     }
 }

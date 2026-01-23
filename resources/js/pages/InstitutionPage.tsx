@@ -18,10 +18,16 @@ interface Institution {
     currency?: string;
     programs: string[];
 }
+
+interface ModalInitialData {
+    institution_id: number;
+    institution_name: string;
+}
 interface Props {
     institution: Institution;
+    modalInitialData?: ModalInitialData;
 }
-const InstitutionPage = ({ institution }: Props) => {
+const InstitutionPage = ({ institution, modalInitialData }: Props) => {
 
     const [modal, setModal] = useState<boolean>(false)
 
@@ -121,7 +127,7 @@ const InstitutionPage = ({ institution }: Props) => {
 
                     </div>
                 </div>
-                {modal && <ModalForInstitutionPage onClose={closeModal} />}
+                {modal && modalInitialData && (<ModalForInstitutionPage onClose={closeModal} initialData={modalInitialData} />)}
 
             </div>
         </DefaultLayout>

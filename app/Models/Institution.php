@@ -25,6 +25,10 @@ class Institution extends Model
         'views'
     ];
 
+    public function bid() {
+        return $this->hasMany(Bid::class);
+    }
+
     protected $casts = [
         'featured' => 'boolean',
         'rating' => 'float',

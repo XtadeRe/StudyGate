@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BidController;
 use App\Http\Controllers\InstitutionController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -15,3 +16,5 @@ Route::get('/', fn () => inertia('Main'))->name('home');
 Route::post('/register', [AuthController::class, 'store'])->name('register.store');
 Route::post('/login', [AuthController::class, 'login'])->name('login.store');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::post('/catalog/{id}/bids', [BidController::class, 'store'])->name('bid.store');

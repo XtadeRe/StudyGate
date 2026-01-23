@@ -33,6 +33,9 @@ class User extends Authenticatable
 
     ];
 
+    public function bid() {
+        return $this->hasMany(Bid::class);
+    }
     /**
      * Get the attributes that should be cast.
      *
