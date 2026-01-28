@@ -1,4 +1,4 @@
-import { ArrowsPointingInIcon, XMarkIcon, FaceSmileIcon } from '@heroicons/react/16/solid';
+import { ArrowsPointingInIcon, XMarkIcon, FaceSmileIcon, FaceFrownIcon } from '@heroicons/react/16/solid';
 import { useState, FormEvent } from 'react';
 import { router, usePage, Link } from '@inertiajs/react';
 interface User {
@@ -26,15 +26,44 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
     });
     const [loading, setLoading] = useState(false);
 
+    if (!user) {
+        return (
+            <div
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+                onClick={onClose}
+            >
+                <div
+                    className="w-full max-w-md rounded-lg bg-white p-6"
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <div className="flex items-center justify-between mb-4">
+                        <h2 className="text-xl font-bold">Требуется авторизация</h2>
+                        <XMarkIcon
+                            onClick={onClose}
+                            className="w-8 cursor-pointer text-gray-300 hover:text-gray-400"
+                        />
+                    </div>
 
+                    <div className="text-center py-8 flex items-center flex-col gap-4">
+                        <FaceFrownIcon className="text-gray-200 w-36" />
+                        <p className="mb-4">Для оформления заявки необходимо авторизоваться</p>
+                        <Link
+                            href="/login"
+                            className="inline-block w-full rounded-2xl py-2 px-5 text-white bg-blue-500 hover:bg-blue-600"
+                        >
+                            Войти
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         setLoading(true);
 
-        // if (!user?.id) {
-        //
-        // }
+
 
         router.post(`/catalog/${initialData.institution_id}/bids`, {
             ...formData,
@@ -42,7 +71,6 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
         }, {
             onSuccess: () => {
                 setStep(3);
-                // onClose();
             },
             onError: (errors) => {
                 alert('Ошибка при отправке заявки');
@@ -55,6 +83,7 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
 
     const formatPhone = (value: string) => {
         const digits = value.replace(/\D/g, '');
+
 
         if (!digits) return '';
 
