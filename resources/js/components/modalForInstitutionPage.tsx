@@ -1,6 +1,8 @@
 import { ArrowsPointingInIcon, XMarkIcon, FaceSmileIcon, FaceFrownIcon } from '@heroicons/react/16/solid';
 import { useState, FormEvent } from 'react';
 import { router, usePage, Link } from '@inertiajs/react';
+import { IMaskInput } from 'react-imask';
+
 interface User {
     id: number;
 }
@@ -14,7 +16,6 @@ interface ModalProps {
 }
 
 const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
-
     const { auth } = usePage().props;
     const user = auth.user as User | null;
     const [step, setStep] = useState(0);
@@ -63,8 +64,6 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
         e.preventDefault();
         setLoading(true);
 
-
-
         router.post(`/catalog/${initialData.institution_id}/bids`, {
             ...formData,
             user_id: user.id,
@@ -81,52 +80,25 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
         });
     };
 
-    const formatPhone = (value: string) => {
-        const digits = value.replace(/\D/g, '');
-
-
-        if (!digits) return '';
-
-        const limitedDigits = digits.substring(0, 11);
-
-        let formatted = '';
-        if (limitedDigits.length > 0) {
-            formatted = '+7';
-        }
-        if (limitedDigits.length > 1) {
-            formatted += ` (${limitedDigits.substring(1, 4)}`;
-        }
-        if (limitedDigits.length > 4) {
-            formatted += `) ${limitedDigits.substring(4, 7)}`;
-        }
-        if (limitedDigits.length > 7) {
-            formatted += `-${limitedDigits.substring(7, 9)}`;
-        }
-        if (limitedDigits.length > 9) {
-            formatted += `-${limitedDigits.substring(9, 11)}`;
-        }
-        return formatted;
-    };
-
-    const formatTelegram = (value: string)=> {
-
+    const formatTelegram = (value: string) => {
         let cleaned = value.replace(/^@+/, '');
         cleaned = cleaned.substring(0, 35);
         cleaned = cleaned.replace(/\s/g, '');
         return cleaned ? `@${cleaned}` : '';
-    }
+    };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
 
-        if (name === 'phone') {
-            setFormData(prev => ({...prev, [name]: formatPhone(value)}))
-        } else if (name === 'tg_username') {
-            setFormData(prev => ({...prev, [name]: formatTelegram(value)}))
+        if (name === 'tg_username') {
+            setFormData(prev => ({ ...prev, [name]: formatTelegram(value) }));
         } else {
-            setFormData(prev => ({...prev, [name]: value}))
+            setFormData(prev => ({ ...prev, [name]: value }));
         }
+    };
+
+    const handlePhoneChange = (value: string) => {
+        setFormData(prev => ({ ...prev, phone: value }));
     };
 
     return (
@@ -194,14 +166,17 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
                                 <label className="block text-sm font-medium text-gray-700">
                                     Номер телефона
                                 </label>
-                                <input
-                                    type="tel"
-                                    name="phone"
+                                <IMaskInput
+                                    mask="+7 (000) 000-00-00"
                                     value={formData.phone}
-                                    onChange={handleInputChange}
+                                    onAccept={handlePhoneChange}
                                     className="mt-1 w-full border rounded-md p-2"
                                     placeholder="+7 (999) 999-99-99"
                                     required
+                                    // Если нужно, можно добавить тип для HTML input
+                                    type="tel"
+                                    // Добавляем имя для формы
+                                    name="phone"
                                 />
                             </div>
 
@@ -273,11 +248,11 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
                             </p>
                         </div>
                         <Link href="/profile/bids" className="rounded-2xl cursor-pointer py-3 px-10 text-white bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 transition-colors shadow-sm">
-                        <button
+                            <button
                                 className="w-full cursor-pointer"
                                 disabled={step < 1}>
-                                 Просмотреть заявку
-                         </button>
+                                Просмотреть заявку
+                            </button>
                         </Link>
                     </div>
                 )}

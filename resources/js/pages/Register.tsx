@@ -48,7 +48,7 @@ const Register = () => {
                         onAccept={(value) => setData('phone', value)}
                         placeholder="+7 (999) 999-99-99"
                         autoComplete="tel"
-                        className="tel"
+                        type="tel"
                     />
                     {errors.phone && <div className="error">{errors.phone}</div>}
 
