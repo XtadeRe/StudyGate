@@ -15,7 +15,7 @@ import {
     ClockIcon,
     ShieldCheckIcon
 } from '@heroicons/react/24/outline';
-import { usePage } from '@inertiajs/react';
+import { usePage, Link } from '@inertiajs/react';
 
 const Immigration = () => {
     const { countries } = usePage().props;
@@ -178,13 +178,15 @@ const Immigration = () => {
                         {countries.map((country, index) => (
                             <div
                                 key={index}
-                                className="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-lg transition-shadow duration-300"
+                                className="relative flex justify-center p-1 rounded-xl overflow-hidden group transition-shadow duration-300 hover:shadow-lg"
                             >
-                                <div className="flex items-center mb-3">
-                                    <span className="text-2xl mr-3">{country.flag}</span>
-                                    <h3 className="font-bold text-lg">{country.name}</h3>
+                                <div className="absolute inset-0 bg-blue-600 transition-opacity duration-500 group-hover:opacity-0" />
+
+                                <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-400 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+                                <div className="relative flex w-full items-center bg-white p-5 rounded-[11px] ">
+                                    <h3 className="font-bold text-lg">{country}</h3>
                                 </div>
-                                <p className="text-gray-600 text-sm">{country.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -198,7 +200,7 @@ const Immigration = () => {
                             {/* Phase Header */}
                             <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
                                 <div className="flex items-center mb-4 md:mb-0">
-                                    <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full font-bold">
+                                    <div className="bg-blue-500 text-white px-6 py-2 rounded-full font-bold">
                                         Фаза {phaseIndex + 1}
                                     </div>
                                     <h2 className="text-2xl font-bold ml-4">{phase.title}</h2>
@@ -347,12 +349,9 @@ const Immigration = () => {
                             Оставьте заявку, и наш специалист свяжется с вами для бесплатной консультации
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
+                            <Link href="/catalog" className="cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
                                 Получить консультацию
-                            </button>
-                            <button className="border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-full font-medium hover:bg-blue-50 transition-colors duration-300">
-                                Подобрать страну
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

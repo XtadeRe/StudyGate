@@ -15,7 +15,7 @@ class AuthController extends Controller
     public function store(UserRequest $request)
     {
 
-        $data = $request->only(['login', 'email']);
+        $data = $request->only(['login', 'phone', 'email']);
         $data['password'] = bcrypt($request->password);
 
         User::create($data);

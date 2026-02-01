@@ -16,6 +16,13 @@ class InstitutionController extends Controller
             'institutions' => $institutions
         ]);
     }
+
+    public function showFromRules() {
+        return Inertia::render('Immigration', [
+            'countries' => Institution::distinct()->pluck('country')
+        ]);
+    }
+
     public function show($id) {
         $institution = Institution::findOrFail($id);
         return Inertia::render('InstitutionPage', [

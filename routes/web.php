@@ -10,7 +10,7 @@ Route::get('/catalog', [InstitutionController::class, 'index'])->name('catalog')
 Route::get('/register', fn () => inertia('Register'))->name('register');
 Route::get('/login', fn () => inertia('Login'))->name('login');
 Route::get('/catalog/{id}', [InstitutionController::class, 'show'])->name('institutionPage');
-Route::get('/immigration', fn () => inertia('Imigration'))->name('imigration');
+Route::get('/immigration', [InstitutionController::class, 'showFromRules'])->name('immigration');
 Route::get('/', fn () => inertia('Main'))->name('home');
 
 Route::post('/register', [AuthController::class, 'store'])->name('register.store');
