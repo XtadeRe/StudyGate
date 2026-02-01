@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\InstitutionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AuthController;
@@ -19,5 +20,5 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('/catalog/{id}/bids', [BidController::class, 'store'])->name('bid.store');
 
-Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+Route::get('/profile', [UserController::class, 'index'])->name('profile.index');
 ///profile/bids

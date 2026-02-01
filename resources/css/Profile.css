@@ -1,0 +1,184 @@
+@import 'tailwindcss';
+
+.profile-container {
+    @apply min-h-screen bg-gradient-to-br from-gray-50 to-blue-50;
+}
+
+.profile-content {
+    @apply container mx-auto px-4 py-8 max-w-6xl;
+}
+
+.profile-header {
+    @apply text-center mb-12;
+}
+
+.profile-title {
+    @apply text-4xl md:text-5xl font-bold text-gray-900 mb-4;
+}
+
+.profile-subtitle {
+    @apply text-lg text-gray-600;
+}
+
+.profile-grid {
+    @apply grid grid-cols-1 lg:grid-cols-3 gap-8;
+}
+
+.profile-card {
+    @apply bg-white rounded-2xl shadow-xl p-6 mb-6 border border-gray-100;
+}
+
+.settings-card {
+    @apply bg-white rounded-2xl shadow-xl p-8 mb-6 border border-gray-100;
+}
+
+.stats-card {
+    @apply bg-white rounded-2xl shadow-xl p-6 border border-gray-100;
+}
+
+.avatar-section {
+    @apply flex flex-col items-center text-center mb-8;
+}
+
+.avatar-image {
+    @apply w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg mb-4;
+}
+
+.avatar-placeholder {
+    @apply w-32 h-32 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center border-4 border-white shadow-lg mb-4;
+}
+
+.avatar-info {
+    @apply space-y-2;
+}
+
+.username {
+    @apply text-2xl font-bold text-gray-900;
+}
+
+.user-status {
+    @apply inline-flex items-center gap-2 text-sm text-green-600 bg-green-50 px-3 py-1 rounded-full;
+}
+
+.info-grid {
+    @apply space-y-6;
+}
+
+.info-item {
+    @apply space-y-2;
+}
+
+.info-label {
+    @apply flex items-center gap-2 text-sm font-medium text-gray-500;
+}
+
+.info-icon {
+    @apply w-4 h-4;
+}
+
+.info-value {
+    @apply text-lg font-semibold text-gray-900;
+}
+
+.settings-title {
+    @apply text-xl font-bold text-gray-900 mb-6;
+}
+
+.security-section {
+    @apply mb-6;
+}
+
+.security-item {
+    @apply flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 bg-gray-50 rounded-xl;
+}
+
+.security-info {
+    @apply space-y-1;
+}
+
+.security-title {
+    @apply font-semibold text-gray-900;
+}
+
+.security-description {
+    @apply text-sm text-gray-600;
+}
+
+.security-button {
+    @apply px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200;
+}
+
+.divider {
+    @apply h-px bg-gray-200 my-8;
+}
+
+.actions-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+}
+
+.action-button {
+    @apply px-6 py-3 rounded-xl font-medium transition-all duration-200;
+}
+
+.action-primary {
+    @apply bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl;
+}
+
+.action-secondary {
+    @apply bg-gray-100 hover:bg-gray-200 text-gray-800 border border-gray-300;
+}
+
+.stats-title {
+    @apply text-xl font-bold text-gray-900 mb-6;
+}
+
+.stats-grid {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-4;
+}
+
+.stat-item {
+    @apply p-4 bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl text-center;
+}
+
+.stat-label {
+    @apply text-sm text-gray-600 mb-2;
+}
+
+.stat-value {
+    @apply text-2xl font-bold text-gray-900;
+}
+
+@media (max-width: 768px) {
+    .profile-title {
+        @apply text-3xl;
+    }
+
+    .username {
+        @apply text-xl;
+    }
+
+    .security-item {
+        @apply text-center;
+    }
+
+    .security-button {
+        @apply w-full;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-card,
+.settings-card,
+.stats-card {
+    animation: fadeIn 0.5s ease-out;
+}
