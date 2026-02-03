@@ -1,7 +1,8 @@
 import DefaultLayout from '@/layouts/DefaultLayouts';
 import { PageProps } from '@inertiajs/core';
-import { UserIcon, EnvelopeIcon, PhoneIcon, ShieldCheckIcon, CalendarIcon } from '@heroicons/react/24/outline';
+import { UserIcon, EnvelopeIcon, PhoneIcon, ShieldCheckIcon, CalendarIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import "../../css/Profile.css";
+import { Link } from '@inertiajs/react';
 
 interface User {
     id: number;
@@ -16,21 +17,21 @@ interface User {
 
 interface Props extends PageProps {
     user: User;
+    bids: never;
 }
 
-const Profile = ({ user }: Props) => {
+const Profile = ({ user, bids }: Props) => {
     return (
         <DefaultLayout>
             <div className="profile-container">
                 <div className="profile-content">
-                    {/* Заголовок */}
                     <div className="profile-header mb-8">
                         <h1 className="profile-title">Личный кабинет</h1>
                         <p className="profile-subtitle">Управление вашими данными и настройками</p>
                     </div>
 
                     <div className="profile-grid">
-                        {/* Левая колонка - Аватар и основная информация */}
+
                         <div className="lg:col-span-1">
                             <div className="profile-card">
                                 <div className="avatar-section">
@@ -86,7 +87,7 @@ const Profile = ({ user }: Props) => {
                             </div>
                         </div>
 
-                        {/* Правая колонка - Настройки и действия */}
+
                         <div className="lg:col-span-2">
                             <div className="settings-card">
                                 <h3 className="settings-title">Безопасность</h3>
@@ -94,7 +95,7 @@ const Profile = ({ user }: Props) => {
                                     <div className="security-item">
                                         <div className="security-info">
                                             <h4 className="security-title">Пароль</h4>
-                                            <p className="security-description">Измените ваш пароль для повышения безопасности</p>
+                                            <p className="security-description">Изменить пароль на новый</p>
                                         </div>
                                         <button className="security-button">
                                             Изменить пароль
@@ -115,22 +116,24 @@ const Profile = ({ user }: Props) => {
                                 </div>
                             </div>
 
-                            {/* Статистика (если будет нужно) */}
+
                             <div className="stats-card">
                                 <h3 className="stats-title">Статистика аккаунта</h3>
                                 <div className="stats-grid">
                                     <div className="stat-item">
-                                        <div className="stat-label">ID пользователя</div>
-                                        <div className="stat-value">#{user.id}</div>
-                                    </div>
-                                    <div className="stat-item">
                                         <div className="stat-label">Заявок подано</div>
-                                        <div className="stat-value">0</div>
+                                        <div className="stat-value">{bids}</div>
                                     </div>
                                     <div className="stat-item">
                                         <div className="stat-label">В избранном</div>
                                         <div className="stat-value">0</div>
                                     </div>
+                                    <Link href="/profile/bids">
+                                    <div className="stat-item-button cursor-pointer">
+                                        <div className="stat-label-button text-white">Перейти к заявкам</div>
+                                        <ArrowRightIcon className="stat-icon-button" />
+                                    </div>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

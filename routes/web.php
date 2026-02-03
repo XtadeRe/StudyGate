@@ -21,4 +21,5 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/catalog/{id}/bids', [BidController::class, 'store'])->name('bid.store');
 
 Route::get('/profile', [UserController::class, 'index'])->name('profile.index');
-///profile/bids
+Route::get('/profile/bids', [UserController::class, 'bids'])->name('profile.bids');
+

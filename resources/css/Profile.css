@@ -140,12 +140,28 @@
     @apply p-4 bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl text-center;
 }
 
+.stat-item-button {
+    @apply p-4 bg-gradient-to-br from-blue-600 to-blue-400 rounded-xl text-center;
+}
+
 .stat-label {
     @apply text-sm text-gray-600 mb-2;
 }
 
+.stat-label-button {
+    @apply text-sm text-white mb-2;
+}
+
 .stat-value {
     @apply text-2xl font-bold text-gray-900;
+}
+
+.stat-icon-button {
+    @apply w-12 mx-auto text-white p-2 pt-0 transition-all duration-300 ease-in-out;
+}
+
+.stat-item-button:hover .stat-icon-button {
+    transform: translateX(10px);
 }
 
 @media (max-width: 768px) {
