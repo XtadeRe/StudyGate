@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+.profile-content {
+    @apply container mx-auto px-4 py-8;
+}
+
+.user-bids-title {
+    @apply text-3xl font-bold text-gray-900 mb-4;
+}
+
+.bid-cart {
+    @apply grid grid-cols-3 bg-white rounded-md shadow-md overflow-hidden transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl;
+}
+
+.bid-cart-photo {
+    @apply col-span-1 object-cover h-full w-full rounded-r-4xl;
+}
+
+.bid-cart-content {
+    @apply col-span-1 p-4 flex flex-col justify-between;
+}
+
+.bid-cart h3 {
+    @apply text-lg font-bold text-gray-900 mb-1;
+}
+
+.bid-cart p {
+    @apply text-sm text-gray-700 my-1;
+}
+
+.bid-cart-buttons {
+    @apply col-span-1 flex flex-row gap-3 m-5 items-end justify-center
+}
+
+.bid-cart-button-1 {
+    @apply bg-blue-500 cursor-pointer text-white p-3 rounded
+}
+
+.bid-cart-button-2 {
+    @apply bg-red-500 cursor-pointer text-white p-3 rounded
+}

@@ -21,10 +21,10 @@ class UserController extends Controller
     }
 
     public function bids() {
-        $bids = Bid::where('user_id', auth()->id())->get();
+        $bidsWithInstitutions = Bid::with('institution')->where('user_id', auth()->id())->get();
 
         return Inertia::render('ProfilePages/MyBids', [
-            'bids' => $bids
+            'bids' => $bidsWithInstitutions
         ]);
     }
 }
