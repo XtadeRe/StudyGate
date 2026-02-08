@@ -15,7 +15,7 @@ import {
     FolderIcon
 } from '@heroicons/react/24/outline';
 import { FormEvent, useState } from 'react';
-import { router } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 
 interface Bid {
     id: number,
@@ -252,12 +252,12 @@ const MyBids = ({ bids }: Props) => {
                                     </div>
                                     {bid.status !== 'cancelled' && (
                                     <div className="bid-card-actions">
-                                        <button className="bid-card-action-primary">
-                                            <PencilIcon className="w-4 h-4 mr-2" />
-                                            Заполнить данные
-                                        </button>
-
-
+                                        <Link href={`/profile/bids/fillBid/${bid.id}`}>
+                                            <button className="bid-card-action-primary">
+                                                <PencilIcon className="w-4 h-4 mr-2" />
+                                                Заполнить данные
+                                            </button>
+                                        </Link>
                                             <button
                                                 onClick={() => handleCancel(bid.id)}
                                                 disabled={processing === bid.id}
