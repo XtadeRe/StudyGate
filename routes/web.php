@@ -22,4 +22,5 @@ Route::post('/catalog/{id}/bids', [BidController::class, 'store'])->name('bid.st
 
 Route::get('/profile', [UserController::class, 'index'])->name('profile.index');
 Route::get('/profile/bids', [UserController::class, 'bids'])->name('profile.bids');
+Route::put('/profile/bids/{id}', [UserController::class, 'updateBidStatus'])->name('bid.update');
 

@@ -21,10 +21,28 @@ class UserController extends Controller
     }
 
     public function bids() {
-        $bidsWithInstitutions = Bid::with('institution')->where('user_id', auth()->id())->get();
+        $bidsWithInstitutions = Bid::with('institution')->where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
 
         return Inertia::render('ProfilePages/MyBids', [
             'bids' => $bidsWithInstitutions
         ]);
+    }
+
+    public function updateBidStatus(Request $request, $id) {
+        $bid = Bid::where('id', $id)->where('user_id', auth()->id())->firstOrFail();
+
+        if (in_array($bid->status, ['approved', 'completed'])) {
+            return back()->with('error', 'Нельзя отменить уже одобренную или завершенную заявку');
+        }
+
+        $bid->update(['status' => "cancelled"]);
+
+        \Log::info('Заявка отменена', [
+            'user_id' => auth()->id(),
+            'bid_id' => $bid->id,
+            'institution_id' => $bid->institution_id,
+        ]);
+
+        return redirect()->back()->with('success', 'Заявка успешно отменена');
     }
 }

@@ -173,9 +173,7 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
                                     className="mt-1 w-full border rounded-md p-2"
                                     placeholder="+7 (999) 999-99-99"
                                     required
-                                    // Если нужно, можно добавить тип для HTML input
                                     type="tel"
-                                    // Добавляем имя для формы
                                     name="phone"
                                 />
                             </div>

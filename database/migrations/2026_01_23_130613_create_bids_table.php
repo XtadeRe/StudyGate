@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('tg_username');
             $table->string('buy_method');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

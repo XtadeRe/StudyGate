@@ -14,7 +14,8 @@ class Bid extends Model
         'name',
         'phone',
         'tg_username',
-        'buy_method'
+        'buy_method',
+        'status'
     ];
 
     public function user() {
