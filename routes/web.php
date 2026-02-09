@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\BidDataController;
 use App\Http\Controllers\InstitutionController;
@@ -8,9 +9,16 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AuthController;
 
-Route::get('/catalog', [InstitutionController::class, 'index'])->name('catalog');
+
 Route::get('/register', fn () => inertia('Register'))->name('register');
 Route::get('/login', fn () => inertia('Login'))->name('login');
+Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])
+    ->name('login.google');
+
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])
+    ->name('login.google.callback');
+
+Route::get('/catalog', [InstitutionController::class, 'index'])->name('catalog');
 Route::get('/catalog/{id}', [InstitutionController::class, 'show'])->name('institutionPage');
 Route::get('/immigration', [InstitutionController::class, 'showFromRules'])->name('immigration');
 Route::get('/', fn () => inertia('Main'))->name('home');
@@ -26,4 +34,5 @@ Route::get('/profile/bids', [UserController::class, 'bids'])->name('profile.bids
 Route::put('/profile/bids/{id}', [UserController::class, 'updateBidStatus'])->name('bid.update');
 
 Route::get('/profile/bids/fillBid/{id}', [BidDataController::class, 'show'])->name('bid.fill');
+
 

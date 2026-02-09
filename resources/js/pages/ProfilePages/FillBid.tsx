@@ -48,7 +48,7 @@ const FillBid = ({user, bid}: Props) => {
 
     return (
     <DefaultLayout>
-        
+
     </DefaultLayout>
     )
 }
