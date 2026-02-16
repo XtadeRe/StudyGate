@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+.FillBid-container {
+    @apply min-h-screen bg-gray-50 py-8;
+}
+
+.FillBid-content {
+    @apply container mx-auto px-4;
+}
+
+.bid-info-form {
+    @apply bg-white rounded-xl shadow-lg p-8;
+}
+
+.FillBid-input {
+    @apply w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300;
+}
+
+.FillBid-input:hover {
+    @apply border-gray-400;
+}
+
+/* Стили для меток */
+label {
+    @apply block text-gray-700 text-sm font-semibold mb-2;
+}
+
+/* Стили для заголовка */
+h1 {
+    @apply text-3xl font-bold text-gray-800 mb-8 text-center;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 640px) {
+    .FillBid-content {
+        @apply px-2;
+    }
+
+    .bid-info-form {
+        @apply p-4;
+    }
+}
