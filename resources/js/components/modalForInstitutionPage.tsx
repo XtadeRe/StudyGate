@@ -149,7 +149,7 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
                         <div className="space-y-3">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700">
-                                    Ваше имя
+                                    Как вас зовут?
                                 </label>
                                 <input
                                     type="text"
@@ -157,7 +157,7 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
                                     value={formData.name}
                                     onChange={handleInputChange}
                                     className="mt-1 w-full border rounded-md p-2"
-                                    placeholder="Иван"
+                                    placeholder="Иван Иванович"
                                     required
                                 />
                             </div>
