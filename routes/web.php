@@ -35,4 +35,5 @@ Route::put('/profile/bids/{id}', [UserController::class, 'updateBidStatus'])->na
 
 Route::get('/profile/bids/fillBid/{id}', [BidDataController::class, 'show'])->name('bid.fill');
 
-
+Route::post('/bids/{bid}/upload-files', [BidDataController::class, 'uploadFiles'])->name('bids.upload-files');
+Route::delete('/bids/{id}/delete-file', [BidDataController::class, 'deleteFile'])->name('bids.destroy');

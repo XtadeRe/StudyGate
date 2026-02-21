@@ -14,8 +14,13 @@ class Bid extends Model
         'name',
         'phone',
         'tg_username',
+        'files',
         'buy_method',
         'status'
+    ];
+
+    protected $casts = [
+        'files' => 'array'
     ];
 
     public function user() {

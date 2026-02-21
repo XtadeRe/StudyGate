@@ -3,6 +3,7 @@ import "../../../css/FillBid.css";
 import { PageProps } from '@inertiajs/core';
 import { useDropzone } from 'react-dropzone';
 import { useCallback, useState } from 'react';
+import { router } from '@inertiajs/react';
 
 interface User {
     id: number;
@@ -40,9 +41,18 @@ interface Bid {
     phone: string,
     tg_username: string,
     buy_method: string,
+    files: FileInfo[] | null,
     created_at: string,
     status?: 'pending' | 'approved' | 'rejected' | 'completed' | 'cancelled',
     institution?: Institution;
+}
+
+interface FileInfo {
+    name: string;
+    path: string;
+    url: string;
+    size: number;
+    mime: string;
 }
 
 interface Props extends PageProps {
@@ -57,12 +67,7 @@ interface UploadedFile extends File {
 
 const FillBid = ({ bid }: Props) => {
     const [files, setFiles] = useState<UploadedFile[]>([]);
-    const [formData, setFormData] = useState({
-        name: bid.name || '',
-        phone: bid.phone || '',
-        tg_username: bid.tg_username || '',
-        buy_method: bid.buy_method || '',
-    });
+    const [uploading, setUploading] = useState(false);
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
         const newFiles = acceptedFiles.map(file => {
@@ -100,43 +105,17 @@ const FillBid = ({ bid }: Props) => {
         });
     };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
-    };
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
-        const submitData = new FormData();
-
-        Object.entries(formData).forEach(([key, value]) => {
-            submitData.append(key, value);
-        });
-
-        files.forEach((file, index) => {
-            submitData.append(`documents[${index}]`, file);
-        });
-
-        submitData.append('bid_id', bid.id.toString());
-
-        try {
-            console.log('Отправка данных:', Object.fromEntries(submitData));
-
-            files.forEach(file => {
-                if (file.preview) URL.revokeObjectURL(file.preview);
+    const deleteServerFile = (filePath: string) => {
+        if (confirm('Вы уверены, что хотите удалить этот файл?')) {
+            router.delete(`/bids/${bid.id}/delete-file`, {
+                data: { file_path: filePath },
+                onSuccess: () => {
+                    alert('Файл успешно удален');
+                },
+                onError: () => {
+                    alert('Ошибка при удалении файла');
+                }
             });
-
-
-            setFiles([]);
-            alert('Заявка успешно отправлена!');
-
-        } catch (error) {
-            console.error('Ошибка при отправке:', error);
-            alert('Произошла ошибка при отправке заявки');
         }
     };
 
@@ -146,78 +125,55 @@ const FillBid = ({ bid }: Props) => {
         return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
     };
 
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (files.length === 0) {
+            alert('Пожалуйста, выберите файлы для загрузки');
+            return;
+        }
+
+        setUploading(true);
+
+        const formData = new FormData();
+
+        files.forEach((file) => {
+            formData.append('files[]', file);
+        });
+
+        router.post(`/bids/${bid.id}/upload-files`, formData, {
+            onSuccess: () => {
+                alert('Файлы успешно загружены!');
+                files.forEach(file => {
+                    if (file.preview) {
+                        URL.revokeObjectURL(file.preview);
+                    }
+                });
+                setFiles([]);
+            },
+            onError: (errors) => {
+                console.error('Ошибка загрузки:', errors);
+                alert('Произошла ошибка при загрузке файлов');
+            },
+            onFinish: () => {
+                setUploading(false);
+            }
+        });
+    };
+
     return (
         <DefaultLayout>
             <div className="FillBid-container">
                 <div className="FillBid-content">
-                    <h1 className="text-2xl font-bold mb-6">Заполнение заявки</h1>
+                    <h1 className="text-2xl font-bold mb-6">Добавление документов</h1>
 
                     <form onSubmit={handleSubmit} className="bid-info-form max-w-2xl mx-auto">
-                        <div className="w-full mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">
-                                Имя
-                            </label>
-                            <input
-                                name="name"
-                                className="FillBid-input w-full px-3 py-2 border-2 border-black rounded-lg focus:outline-none focus:border-blue-500"
-                                value={formData.name}
-                                onChange={handleInputChange}
-                                placeholder="Введите ваше имя"
-                                required
-                            />
-                        </div>
-
-                        <div className="w-full mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">
-                                Телефон
-                            </label>
-                            <input
-                                name="phone"
-                                className="FillBid-input w-full px-3 py-2 border-2 border-black rounded-lg focus:outline-none focus:border-blue-500"
-                                value={formData.phone}
-                                onChange={handleInputChange}
-                                placeholder="Введите номер телефона"
-                                required
-                            />
-                        </div>
-
-                        <div className="w-full mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">
-                                Telegram username
-                            </label>
-                            <input
-                                name="tg_username"
-                                className="FillBid-input w-full px-3 py-2 border-2 border-black rounded-lg focus:outline-none focus:border-blue-500"
-                                value={formData.tg_username}
-                                onChange={handleInputChange}
-                                placeholder="@username"
-                            />
-                        </div>
-
-                        <div className="w-full mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">
-                                Способ покупки
-                            </label>
-                            <select
-                                name="buy_method"
-                                className="FillBid-input w-full px-3 py-2 border-2 border-black rounded-lg focus:outline-none focus:border-blue-500"
-                                value={formData.buy_method}
-                                onChange={handleInputChange}
-                                required
-                            >
-                                <option value="">Выберите способ</option>
-                                <option value="full">Полная оплата</option>
-                                <option value="installment">Рассрочка</option>
-                                <option value="credit">Кредит</option>
-                            </select>
-                        </div>
-
+                        {/* Dropzone для загрузки файлов */}
                         <div className="user-documents mb-6">
                             <label className="block text-gray-700 text-sm font-bold mb-2">
                                 Приложите сюда свои документы
                             </label>
 
-                            {/* Dropzone область */}
                             <div
                                 {...getRootProps()}
                                 className={`dropzone border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors
@@ -238,10 +194,10 @@ const FillBid = ({ bid }: Props) => {
                                 )}
                             </div>
 
-                            {/* Список загруженных файлов */}
+                            {/* Список выбранных файлов для загрузки */}
                             {files.length > 0 && (
                                 <div className="mt-4">
-                                    <h4 className="font-medium mb-2">Загруженные файлы ({files.length}):</h4>
+                                    <h4 className="font-medium mb-2">Новые файлы для загрузки ({files.length}):</h4>
                                     <div className="space-y-2">
                                         {files.map((file) => (
                                             <div
@@ -286,6 +242,7 @@ const FillBid = ({ bid }: Props) => {
                             )}
                         </div>
 
+                        {/* Информация об учебном заведении */}
                         {bid.institution && (
                             <div className="w-full mb-6 p-4 bg-gray-100 rounded-lg">
                                 <h3 className="font-bold text-lg mb-2">Информация об учебном заведении</h3>
@@ -304,23 +261,66 @@ const FillBid = ({ bid }: Props) => {
                         <div className="w-full flex gap-4 mt-6">
                             <button
                                 type="submit"
-                                className="flex-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300"
+                                disabled={uploading}
+                                className={`flex-1 font-bold py-3 px-4 rounded-lg transition duration-300
+                                    ${uploading
+                                    ? 'bg-gray-400 cursor-not-allowed'
+                                    : 'bg-blue-500 hover:bg-blue-700 text-white'
+                                }`}
                             >
-                                Отправить заявку
+                                {uploading ? 'Загрузка...' : 'Отправить документы'}
                             </button>
                             <button
                                 type="button"
                                 className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-4 rounded-lg transition duration-300"
                                 onClick={() => window.history.back()}
+                                disabled={uploading}
                             >
                                 Отмена
                             </button>
                         </div>
                     </form>
+
+                    {bid.files && Array.isArray(bid.files) && bid.files.length > 0 && (
+                        <div className="mt-8">
+                            <h3 className="font-bold text-lg mb-4">Загруженные документы:</h3>
+                            <div className="space-y-2">
+                                {bid.files.map((file: FileInfo, index: number) => (
+                                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-lg">📄</span>
+                                            <div>
+                                                <p className="text-sm font-medium">{file.name}</p>
+                                                <p className="text-xs text-gray-500">
+                                                    {formatFileSize(file.size)}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <a
+                                                href={file.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-500 hover:text-blue-700 text-sm px-3 py-1 border border-blue-500 rounded"
+                                            >
+                                                Скачать
+                                            </a>
+                                            <button
+                                                onClick={() => deleteServerFile(file.path)}
+                                                className="text-red-500 hover:text-red-700 text-sm px-3 py-1 border border-red-500 rounded"
+                                            >
+                                                Удалить
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </DefaultLayout>
-    )
-}
+    );
+};
 
 export default FillBid;
