@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('password')->nullable();
             $table->string('avatar')->nullable();
+            $table->string('role')->default('user');
 
             $table->string('google_id')->nullable();
             $table->text('google_token')->nullable();

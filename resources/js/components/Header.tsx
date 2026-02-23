@@ -5,6 +5,7 @@ import { Link, router, usePage } from '@inertiajs/react';
 interface User {
     id: number;
     login: string;
+    role: string;
     email: string;
 }
 

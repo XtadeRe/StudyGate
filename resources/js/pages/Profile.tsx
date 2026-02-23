@@ -9,6 +9,7 @@ interface User {
     avatar: string;
     login: string;
     email: string;
+    role: string;
     phone: string;
     password: string;
     created_at?: string;
@@ -128,12 +129,27 @@ const Profile = ({ user, bids }: Props) => {
                                         <div className="stat-label">В избранном</div>
                                         <div className="stat-value">0</div>
                                     </div>
+                                    {user.role == "user" && (
                                     <Link href="/profile/bids">
                                     <div className="stat-item-button cursor-pointer">
                                         <div className="stat-label-button text-white">Перейти к заявкам</div>
                                         <ArrowRightIcon className="stat-icon-button" />
                                     </div>
-                                    </Link>
+                                    </Link>)}
+                                    {user.role == "manager" && (
+                                        <Link href="/profile/manager_menu">
+                                            <div className="stat-item-button cursor-pointer">
+                                                <div className="stat-label-button text-white">Менеджер меню</div>
+                                                <ArrowRightIcon className="stat-icon-button" />
+                                            </div>
+                                        </Link>)}
+                                    {user.role == "admin" && (
+                                        <Link href="/profile/admin_menu">
+                                            <div className="stat-item-button cursor-pointer">
+                                                <div className="stat-label-button text-white">Админ меню</div>
+                                                <ArrowRightIcon className="stat-icon-button" />
+                                            </div>
+                                        </Link>)}
                                 </div>
                             </div>
                         </div>

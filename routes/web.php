@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\BidDataController;
 use App\Http\Controllers\InstitutionController;
+use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -37,3 +38,5 @@ Route::get('/profile/bids/fillBid/{id}', [BidDataController::class, 'show'])->na
 
 Route::post('/bids/{bid}/upload-files', [BidDataController::class, 'uploadFiles'])->name('bids.upload-files');
 Route::delete('/bids/{id}/delete-file', [BidDataController::class, 'deleteFile'])->name('bids.destroy');
+
+Route::get('/profile/manager_menu', [ManagerController::class, 'index'])->name('manager.menu');
