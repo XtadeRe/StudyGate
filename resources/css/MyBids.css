@@ -58,7 +58,7 @@
     }
 
     .bid-card-actions {
-        @apply px-6 pb-6 flex flex-col sm:flex-row gap-3;
+        @apply px-6 pb-6 flex flex-row gap-3;
     }
 
     .bid-card-action-primary {

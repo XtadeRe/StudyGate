@@ -10,7 +10,6 @@ const Footer = () => {
         <footer className="bg-gray-900 text-white pt-12 pb-8">
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-                    {/* Логотип и описание */}
                     <div className="lg:col-span-1">
                         <Link href="/" className="inline-block mb-6">
                             <div className="flex items-center">

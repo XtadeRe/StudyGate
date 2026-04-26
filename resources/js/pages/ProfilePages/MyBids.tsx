@@ -14,7 +14,7 @@ import {
     ClockIcon,
     FolderIcon
 } from '@heroicons/react/24/outline';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { Link, router } from '@inertiajs/react';
 
 interface Bid {
@@ -200,7 +200,13 @@ const MyBids = ({ bids }: Props) => {
                                                     </div>
                                                     <div className="bid-card-info-item">
                                                         <span className="bid-card-info-label">Программы:</span>
-                                                        <span className="bid-card-info-value">{bid.institution?.programs || 'Не указано'}</span>
+                                                        <span className="bid-card-info-value">
+                                                            {bid.institution?.programs ?
+                                                                (typeof bid.institution.programs === 'string'
+                                                                ? JSON.parse(bid.institution.programs).join(', ')
+                                                                : bid.institution.programs.join(', '))
+                                                            : 'Не указано'}
+                                                        </span>
                                                     </div>
                                                     <div className="bid-card-info-item">
                                                         <span className="bid-card-info-label">Стоимость:</span>
@@ -252,11 +258,9 @@ const MyBids = ({ bids }: Props) => {
                                     </div>
                                     {bid.status !== 'cancelled' && (
                                     <div className="bid-card-actions">
-                                        <Link href={`/profile/bids/fillBid/${bid.id}`}>
-                                            <button className="bid-card-action-primary">
+                                        <Link href={`/profile/bids/fillBid/${bid.id}`} className="bid-card-action-primary">
                                                 <PencilIcon className="w-4 h-4 mr-2" />
                                                 Заполнить данные
-                                            </button>
                                         </Link>
                                             <button
                                                 onClick={() => handleCancel(bid.id)}

@@ -20,8 +20,8 @@ const Catalog = () => {
 
                 <div className="catalog-grid">
                     {institutions.map((institution) => (
-                        <div key={institution.id} className="institution-card">
-
+                        <div key={institution.id} className="institution-card flex flex-col h-full">
+                            {/* Изображение остается сверху */}
                             <div className="card-image-container">
                                 <img
                                     src={institution.image_url || 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'}
@@ -38,30 +38,30 @@ const Catalog = () => {
                                 </div>
                             </div>
 
-                            <div className="card-content">
+                            {/* Контент карточки с flex-растяжением */}
+                            <div className="card-content flex flex-col flex-grow">
                                 <h3 className="card-title">{institution.name}</h3>
 
                                 <div className="location-container">
-                                    <svg className="location-icon" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                                    </svg>
-                                    <span className="location-text">
-                                        {institution.city}, {institution.country}
-                                    </span>
+            <span className="location-text">
+                {institution.city}, {institution.country}
+            </span>
                                 </div>
 
-                                <div className="programs-container">
-                                    <span className="type-badge">
-                                        {institution.type}
-                                    </span>
+                                {/* Фиксированная высота для контейнера программ */}
+                                <div className="programs-container min-h-[3.5rem] mb-4">
+            <span className="type-badge">
+                {institution.type}
+            </span>
                                     {institution.programs && institution.programs.slice(0, 2).map((program, index) => (
                                         <span key={index} className="program-badge">
-                                            {program}
-                                        </span>
+                    {program}
+                </span>
                                     ))}
                                 </div>
 
-                                <div className="mt-4">
+                                {/* Блок с ценой прижимается к низу */}
+                                <div className="mt-auto">
                                     <div className="text-lg font-bold text-blue-600 mb-2">
                                         {institution.price_from ?
                                             `${institution.currency === 'USD' ? '$' : institution.currency}${institution.price_from.toLocaleString()}` +
@@ -71,8 +71,10 @@ const Catalog = () => {
                                     </div>
                                 </div>
 
-                                <div className="card-actions">
-                                        <Link className="apply-button cursor-pointer" href={`/catalog/${institution.id}`}>Подробнее →</Link>
+                                <div className="card-actions mt-4">
+                                    <Link className="apply-button cursor-pointer" href={`/catalog/${institution.id}`}>
+                                        Подробнее →
+                                    </Link>
                                 </div>
                             </div>
                         </div>

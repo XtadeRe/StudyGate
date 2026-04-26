@@ -65,13 +65,27 @@ const Profile = ({ user, bids }: Props) => {
                                         <div className="info-value">{user.email}</div>
                                     </div>
 
-                                    <div className="info-item">
-                                        <div className="info-label">
-                                            <PhoneIcon className="info-icon" />
-                                            Телефон
+
+                                    {user.phone ? (
+                                        <div className="info-item">
+                                            <div className="info-label">
+                                                <PhoneIcon className="info-icon" />
+                                                Телефон
+                                            </div>
+                                            <div className="info-value">
+                                                {user.phone}
+                                            </div>
                                         </div>
-                                        <div className="info-value">{user.phone}</div>
-                                    </div>
+                                        ) : (
+                                        <div className="info-item">
+                                            <div className="info-label">
+                                                <PhoneIcon className="info-icon" />
+                                                Телефон (отсутствует)
+                                            </div>
+                                            <div className="info-value"><button className="add-phone-btn">Добавить номер телефона</button></div>
+                                        </div>)
+                                    }
+
 
                                     {user.created_at && (
                                         <div className="info-item">

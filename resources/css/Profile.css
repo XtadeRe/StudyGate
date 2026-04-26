@@ -164,6 +164,14 @@
     transform: translateX(10px);
 }
 
+.add-phone-btn {
+    @apply text-[14px] text-yellow-600 p-1 outline-1 font-normal outline-yellow-400 rounded-xl bg-yellow-100 duration-300;
+}
+
+.add-phone-btn:hover {
+    @apply scale-105 cursor-pointer duration-300 shadow-xl outline-yellow-600 shadow-amber-100;
+}
+
 @media (max-width: 768px) {
     .profile-title {
         @apply text-3xl;

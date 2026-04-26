@@ -49,7 +49,7 @@
 }
 
 .card-content {
-    @apply p-4;
+    @apply p-4 min-h-1;
 }
 
 .card-title {
@@ -69,7 +69,7 @@
 }
 
 .programs-container {
-    @apply mb-4;
+    @apply mb-4 min-h-5;
 }
 
 .type-badge {
