@@ -33,10 +33,13 @@ Route::post('/catalog/{id}/bids', [BidController::class, 'store'])->name('bid.st
 Route::get('/profile', [UserController::class, 'index'])->name('profile.index');
 Route::get('/profile/bids', [UserController::class, 'bids'])->name('profile.bids');
 Route::put('/profile/bids/{id}', [UserController::class, 'updateBidStatus'])->name('bid.update');
-
+Route::patch('/profile/phone', [UserController::class, 'updatePhone'])->name('profile.phone');
 Route::get('/profile/bids/fillBid/{id}', [BidDataController::class, 'show'])->name('bid.fill');
 
 Route::post('/bids/{bid}/upload-files', [BidDataController::class, 'uploadFiles'])->name('bids.upload-files');
 Route::delete('/bids/{id}/delete-file', [BidDataController::class, 'deleteFile'])->name('bids.destroy');
 
 Route::get('/profile/manager_menu', [ManagerController::class, 'index'])->name('manager.menu');
+Route::get('/profile/manager', [ManagerController::class, 'profile'])->name('manager.profile');
+Route::delete('/profile/manager_menu/{id}/delete', [ManagerController::class, 'delete'])->name('manager.bid.delete');
+Route::patch('/profile/manager_menu/{id}/status', [ManagerController::class, 'update'])->name('manager.bid.update');

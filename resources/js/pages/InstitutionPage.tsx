@@ -1,7 +1,7 @@
-import "../../css/InstitutionPage.css";
 import { useState } from 'react';
-import DefaultLayout from '../layouts/DefaultLayouts'
+import '../../css/InstitutionPage.css';
 import ModalForInstitutionPage from '../components/modalForInstitutionPage';
+import DefaultLayout from '../layouts/DefaultLayouts';
 
 interface Institution {
     name: string;
@@ -27,18 +27,17 @@ interface Props {
     institution: Institution;
     modalInitialData?: ModalInitialData;
 }
-const InstitutionPage = ({ institution, modalInitialData }: Props) => {
 
-    const [modal, setModal] = useState<boolean>(false)
+const InstitutionPage = ({ institution, modalInitialData }: Props) => {
+    const [modal, setModal] = useState<boolean>(false);
 
     const openModal = () => {
-        setModal(true)
-    }
+        setModal(true);
+    };
 
     const closeModal = () => {
-        setModal(false)
-    }
-
+        setModal(false);
+    };
 
     return (
         <DefaultLayout>
@@ -48,22 +47,16 @@ const InstitutionPage = ({ institution, modalInitialData }: Props) => {
                         <div className="lg:col-span-1">
                             <div className="institution-sidebar">
                                 <div className="institution-photo-card mb-8">
-                                    <img
-                                        src={institution.image_url}
-                                        alt={institution.name}
-                                        className="institution-photo"
-                                    />
+                                    <img src={institution.image_url} alt={institution.name} className="institution-photo" />
                                     <div className="p-6">
                                         <div className="flex">
                                             <div>
                                                 <div className="info-label">Местоположение</div>
-                                                <div className="info-value">{institution.city}, {institution.country}</div>
+                                                <div className="info-value">
+                                                    {institution.city}, {institution.country}
+                                                </div>
                                             </div>
-                                            {institution.featured && (
-                                                <span className="featured-badge ">
-                                                    Рекомендуем
-                                                </span>
-                                            )}
+                                            {institution.featured && <span className="featured-badge">Рекомендуем</span>}
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +80,7 @@ const InstitutionPage = ({ institution, modalInitialData }: Props) => {
                                     </div>
                                     <div className="stat-card">
                                         <div className="stat-label">Рейтинг</div>
-                                        <div className="stat-value">{institution.rating || "—"}</div>
+                                        <div className="stat-value">{institution.rating || '—'}</div>
                                     </div>
                                     <div className="stat-card">
                                         <div className="stat-label">Просмотров</div>
@@ -99,7 +92,7 @@ const InstitutionPage = ({ institution, modalInitialData }: Props) => {
                                     <h2 className="price-title">Стоимость обучения</h2>
                                     <div className="price-card">
                                         <div className="price-amount">
-                                            {institution.price_from ? `${institution.price_from}` : "—"}
+                                            {institution.price_from ? `${institution.price_from}` : '—'}
                                             {institution.price_to && ` – ${institution.price_to}`}
                                             {institution.currency && ` ${institution.currency}`}
                                         </div>
@@ -121,14 +114,11 @@ const InstitutionPage = ({ institution, modalInitialData }: Props) => {
                                 <button onClick={openModal} className="apply-button cursor-pointer">
                                     Начать подачу
                                 </button>
-
                             </div>
                         </div>
-
                     </div>
                 </div>
-                {modal && modalInitialData && (<ModalForInstitutionPage onClose={closeModal} initialData={modalInitialData} />)}
-
+                {modal && modalInitialData && <ModalForInstitutionPage onClose={closeModal} initialData={modalInitialData} />}
             </div>
         </DefaultLayout>
     );

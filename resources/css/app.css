@@ -1,4 +1,5 @@
 @import 'tailwindcss';
-@import "./LoginRegisterPages.css";
-@import "../fonts/fonts.css";
-
+@import './LoginRegisterPages.css';
+@import './Profile.css';
+@import './MyBids.css';
+@import '../fonts/fonts.css';

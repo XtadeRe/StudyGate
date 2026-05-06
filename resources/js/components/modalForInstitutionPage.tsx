@@ -1,6 +1,6 @@
-import { ArrowsPointingInIcon, XMarkIcon, FaceSmileIcon, FaceFrownIcon } from '@heroicons/react/16/solid';
-import { useState, FormEvent } from 'react';
-import { router, usePage, Link } from '@inertiajs/react';
+import { ArrowsPointingInIcon, FaceFrownIcon, FaceSmileIcon, XMarkIcon } from '@heroicons/react/16/solid';
+import { Link, router, usePage } from '@inertiajs/react';
+import { FormEvent, useState } from 'react';
 import { IMaskInput } from 'react-imask';
 
 interface User {
@@ -23,35 +23,23 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
         name: '',
         phone: '',
         tg_username: '',
-        buy_method: ''
+        buy_method: '',
     });
     const [loading, setLoading] = useState(false);
 
     if (!user) {
         return (
-            <div
-                className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-                onClick={onClose}
-            >
-                <div
-                    className="w-full max-w-md rounded-lg bg-white p-6"
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    <div className="flex items-center justify-between mb-4">
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onClose}>
+                <div className="w-full max-w-md rounded-lg bg-white p-6" onClick={(e) => e.stopPropagation()}>
+                    <div className="mb-4 flex items-center justify-between">
                         <h2 className="text-xl font-bold">Требуется авторизация</h2>
-                        <XMarkIcon
-                            onClick={onClose}
-                            className="w-8 cursor-pointer text-gray-300 hover:text-gray-400"
-                        />
+                        <XMarkIcon onClick={onClose} className="w-8 cursor-pointer text-gray-300 hover:text-gray-400" />
                     </div>
 
-                    <div className="text-center py-8 flex items-center flex-col gap-4">
-                        <FaceFrownIcon className="text-gray-200 w-36" />
+                    <div className="flex flex-col items-center gap-4 py-8 text-center">
+                        <FaceFrownIcon className="w-36 text-gray-200" />
                         <p className="mb-4">Для оформления заявки необходимо авторизоваться</p>
-                        <Link
-                            href="/login"
-                            className="inline-block w-full rounded-2xl py-2 px-5 text-white bg-blue-500 hover:bg-blue-600"
-                        >
+                        <Link href="/login" className="inline-block w-full rounded-2xl bg-blue-500 px-5 py-2 text-white hover:bg-blue-600">
                             Войти
                         </Link>
                     </div>
@@ -64,20 +52,24 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
         e.preventDefault();
         setLoading(true);
 
-        router.post(`/catalog/${initialData.institution_id}/bids`, {
-            ...formData,
-            user_id: user.id,
-        }, {
-            onSuccess: () => {
-                setStep(3);
+        router.post(
+            `/catalog/${initialData.institution_id}/bids`,
+            {
+                ...formData,
+                user_id: user.id,
             },
-            onError: (errors) => {
-                alert('Ошибка при отправке заявки');
-                console.error(errors);
+            {
+                onSuccess: () => {
+                    setStep(3);
+                },
+                onError: (errors) => {
+                    alert('Ошибка при отправке заявки');
+                    console.error(errors);
+                },
+                onFinish: () => setLoading(false),
+                preserveScroll: true,
             },
-            onFinish: () => setLoading(false),
-            preserveScroll: true,
-        });
+        );
     };
 
     const formatTelegram = (value: string) => {
@@ -91,35 +83,23 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
         const { name, value } = e.target;
 
         if (name === 'tg_username') {
-            setFormData(prev => ({ ...prev, [name]: formatTelegram(value) }));
+            setFormData((prev) => ({ ...prev, [name]: formatTelegram(value) }));
         } else {
-            setFormData(prev => ({ ...prev, [name]: value }));
+            setFormData((prev) => ({ ...prev, [name]: value }));
         }
     };
 
     const handlePhoneChange = (value: string) => {
-        setFormData(prev => ({ ...prev, phone: value }));
+        setFormData((prev) => ({ ...prev, phone: value }));
     };
 
     return (
-        <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-            onClick={onClose}
-        >
-            <div
-                className="w-full max-w-md rounded-lg bg-white p-6"
-                onClick={(e) => e.stopPropagation()}
-            >
-                <div className="flex items-center justify-between mb-4">
-                    {step < 3 ?
-                        (<h2 className="text-xl font-bold">Оформление</h2>) : (
-                            <h2 className="text-xl font-bold">Всё отлично!</h2>
-                        )}
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onClose}>
+            <div className="w-full max-w-md rounded-lg bg-white p-6" onClick={(e) => e.stopPropagation()}>
+                <div className="mb-4 flex items-center justify-between">
+                    {step < 3 ? <h2 className="text-xl font-bold">Оформление</h2> : <h2 className="text-xl font-bold">Всё отлично!</h2>}
 
-                    <XMarkIcon
-                        onClick={onClose}
-                        className="w-8 cursor-pointer text-gray-300 hover:text-gray-400"
-                    />
+                    <XMarkIcon onClick={onClose} className="w-8 cursor-pointer text-gray-300 hover:text-gray-400" />
                 </div>
 
                 {step < 2 ? (
@@ -129,7 +109,7 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={() => setStep(1)}
-                            className="text-blue-500 underline text-sm"
+                            className="text-sm text-blue-500 underline"
                         >
                             Перед началом ознакомьтесь с тем как будет проходить наша работа
                             <ArrowsPointingInIcon className="ml-2 inline h-4 w-4" />
@@ -138,7 +118,7 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
 
                         <button
                             onClick={() => setStep(2)}
-                            className="rounded-2xl py-2 px-5 text-white bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300"
+                            className="rounded-2xl bg-blue-500 px-5 py-2 text-white hover:bg-blue-600 disabled:bg-blue-300"
                             disabled={step < 1}
                         >
                             Далее
@@ -148,29 +128,25 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
                     <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
                         <div className="space-y-3">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">
-                                    Как вас зовут?
-                                </label>
+                                <label className="block text-sm font-medium text-gray-700">Как вас зовут?</label>
                                 <input
                                     type="text"
                                     name="name"
                                     value={formData.name}
                                     onChange={handleInputChange}
-                                    className="mt-1 w-full border rounded-md p-2"
+                                    className="mt-1 w-full rounded-md border p-2"
                                     placeholder="Иван Иванович"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">
-                                    Номер телефона
-                                </label>
+                                <label className="block text-sm font-medium text-gray-700">Номер телефона</label>
                                 <IMaskInput
                                     mask="+7 (000) 000-00-00"
                                     value={formData.phone}
                                     onAccept={handlePhoneChange}
-                                    className="mt-1 w-full border rounded-md p-2"
+                                    className="mt-1 w-full rounded-md border p-2"
                                     placeholder="+7 (999) 999-99-99"
                                     required
                                     type="tel"
@@ -179,21 +155,17 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">
-                                    Ваш @username в телеграмм
-                                </label>
+                                <label className="block text-sm font-medium text-gray-700">Ваш @username в телеграмм</label>
                                 <input
                                     type="text"
                                     name="tg_username"
                                     value={formData.tg_username}
                                     onChange={handleInputChange}
-                                    className="mt-1 w-full border rounded-md p-2"
+                                    className="mt-1 w-full rounded-md border p-2"
                                     placeholder="@user"
                                     required
                                 />
-                                <p className="text-sm text-gray-500 mt-1">
-                                    *Придет сообщение от нашего сотрудника*
-                                </p>
+                                <p className="mt-1 text-sm text-gray-500">*Придет сообщение от нашего сотрудника*</p>
                             </div>
 
                             <div>
@@ -201,7 +173,7 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
                                     name="buy_method"
                                     value={formData.buy_method}
                                     onChange={handleInputChange}
-                                    className="w-full border rounded-md p-2"
+                                    className="w-full rounded-md border p-2"
                                     required
                                 >
                                     <option value="">Способ оплаты</option>
@@ -214,41 +186,36 @@ const ModalForInstitutionPage = ({ onClose, initialData }: ModalProps) => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 disabled:bg-blue-300"
+                            className="rounded-xl bg-blue-600 py-2 text-white hover:bg-blue-700 disabled:bg-blue-300"
                         >
                             {loading ? 'Отправка...' : 'Продолжить'}
                         </button>
                     </form>
                 ) : (
                     <div className="flex flex-col gap-8">
-                        <div className="flex flex-col items-center text-center gap-6">
+                        <div className="flex flex-col items-center gap-6 text-center">
                             <div className="flex flex-col items-center gap-3">
-                                <FaceSmileIcon className="text-gray-200 w-36 h-36" />
-                                <p className="text-xl font-semibold text-gray-800">
-                                    Скоро с вами свяжется наш оператор.
-                                </p>
+                                <FaceSmileIcon className="h-36 w-36 text-gray-200" />
+                                <p className="text-xl font-semibold text-gray-800">Скоро с вами свяжется наш оператор.</p>
                             </div>
 
                             <div className="w-full max-w-xs space-y-4">
                                 <hr className="border-t border-gray-300" />
 
                                 <div className="px-4">
-                                    <span className="text-gray-700 text-sm leading-relaxed">
-                                     Ваша заявка появилась уже у вас в личном кабинете!
-                                    </span>
+                                    <span className="text-sm leading-relaxed text-gray-700">Ваша заявка появилась уже у вас в личном кабинете!</span>
                                 </div>
 
                                 <hr className="border-t border-gray-300" />
                             </div>
 
-                            <p className="text-gray-600 italic mt-2">
-                                Подождите сообщения в Telegram пожалуйста!
-                            </p>
+                            <p className="mt-2 text-gray-600 italic">Подождите сообщения в Telegram пожалуйста!</p>
                         </div>
-                        <Link href="/profile/bids" className="rounded-2xl cursor-pointer py-3 px-10 text-white bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 transition-colors shadow-sm">
-                            <button
-                                className="w-full cursor-pointer"
-                                disabled={step < 1}>
+                        <Link
+                            href="/profile/bids"
+                            className="cursor-pointer rounded-2xl bg-blue-500 px-10 py-3 text-white shadow-sm transition-colors hover:bg-blue-600 disabled:bg-blue-300"
+                        >
+                            <button className="w-full cursor-pointer" disabled={step < 1}>
                                 Просмотреть заявку
                             </button>
                         </Link>

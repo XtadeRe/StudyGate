@@ -1,6 +1,5 @@
-import React from 'react';
 import { Link, router, usePage } from '@inertiajs/react';
-
+import React from 'react';
 
 interface User {
     id: number;
@@ -25,37 +24,26 @@ const Header = () => {
     };
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+        <header className="fixed top-0 right-0 left-0 z-50 bg-white shadow-sm">
             <div className="container mx-auto px-4 py-4">
-                <nav className="flex justify-between items-center">
+                <nav className="flex items-center justify-between">
                     <Link href="/">
-                        <h1 className="text-2xl font-bold tracking-widest uppercase text-gray-900">
-                            StudyGate
-                        </h1>
+                        <h1 className="text-2xl font-bold tracking-widest text-gray-900 uppercase">StudyGate</h1>
                     </Link>
 
-                    <ul className="hidden md:flex space-x-8">
+                    <ul className="hidden space-x-8 md:flex">
                         <li>
-                            <Link
-                                href="/catalog"
-                                className="text-gray-700 hover:text-blue-600 transition-colors duration-300 font-medium"
-                            >
+                            <Link href="/catalog" className="font-medium text-gray-700 transition-colors duration-300 hover:text-blue-600">
                                 Учебные заведения
                             </Link>
                         </li>
                         <li>
-                            <Link
-                                href="/about"
-                                className="text-gray-700 hover:text-blue-600 transition-colors duration-300 font-medium"
-                            >
+                            <Link href="/about" className="font-medium text-gray-700 transition-colors duration-300 hover:text-blue-600">
                                 О компании
                             </Link>
                         </li>
                         <li>
-                            <Link
-                                href="/immigration"
-                                className="text-gray-700 hover:text-blue-600 transition-colors duration-300 font-medium"
-                            >
+                            <Link href="/immigration" className="font-medium text-gray-700 transition-colors duration-300 hover:text-blue-600">
                                 Правила
                             </Link>
                         </li>
@@ -66,13 +54,13 @@ const Header = () => {
                             <>
                                 <Link
                                     href="/register"
-                                    className="text-gray-700 hover:text-blue-600 transition-colors duration-300 font-medium"
+                                    className="cursor-pointer font-medium text-gray-700 transition-colors duration-300 hover:text-blue-600"
                                 >
                                     Регистрация
                                 </Link>
                                 <Link
                                     href="/login"
-                                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300 font-medium"
+                                    className="cursor-pointer rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition-colors duration-300 hover:bg-blue-700"
                                 >
                                     Вход
                                 </Link>
@@ -80,24 +68,25 @@ const Header = () => {
                         ) : (
                             <>
                                 <div className="flex flex-col items-end">
-                                    <span className="text-gray-900 font-medium">
-                                        {user.login}
-                                    </span>
-                                    <span className="text-sm text-gray-500">
-                                        {user.email}
-                                    </span>
+                                    <span className="font-medium text-gray-900">{user.login}</span>
+                                    <span className="text-sm text-gray-500">{user.email}</span>
                                 </div>
-                            <Link
-                                href="/profile"
-                                className="text-gray-700 hover:text-blue-600 transition-colors duration-300 font-medium"
-                            >
-                                Профиль
-                            </Link>
+                                <Link
+                                    href={user.role == 'user' ? '/profile' : '/profile/manager'}
+                                    className="font-medium text-gray-700 transition-colors duration-300 hover:text-blue-600"
+                                >
+                                    Профиль
+                                </Link>
                                 <form onSubmit={handleLogout}>
-                                <button type="submit" className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors duration-300 font-medium">Выйти</button>
+                                    <button
+                                        type="submit"
+                                        className="rounded-lg bg-gray-100 px-4 py-2 font-medium text-gray-700 transition-colors duration-300 hover:bg-gray-200"
+                                    >
+                                        Выйти
+                                    </button>
                                 </form>
                             </>
-                            )}
+                        )}
                     </div>
                 </nav>
             </div>
