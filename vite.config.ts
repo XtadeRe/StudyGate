@@ -17,6 +17,18 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    server: {
+        host: '0.0.0.0', // Разрешаем доступ из Docker
+        port: 5173,
+        strictPort: true,
+        watch: {
+            usePolling: true, // Нужно для Docker
+        },
+        hmr: {
+            host: 'localhost', // или ваш IP
+            port: 5173,
+        },
+    },
     esbuild: {
         jsx: 'automatic',
     },
