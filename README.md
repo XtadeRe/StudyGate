@@ -1,3 +1,2 @@
-**Перейдите в ветку server, там описание!**
+**Сайт для подачи документов в разные вузы мира**
 
-**Go to the server thread; the description is there!**
